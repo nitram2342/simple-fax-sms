@@ -4,7 +4,8 @@
 Installation
 ==================
 
-git install git+https://github.com/nitram2342/simple-fax-sms
+::
+   git install git+https://github.com/nitram2342/simple-fax-sms
 
 
 Usage example
@@ -14,6 +15,7 @@ The ``fensterbrief`` tool is command line based:
 
 ::
    SIMPLEFAXDE_PASS=mysecret simple_fax_sms --phone +49xxxxxx --user login@example.com --text 'Hello, World"
+
 
 Copyright and Licence
 =====================
