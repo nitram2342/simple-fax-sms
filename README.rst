@@ -4,15 +4,17 @@
 Installation
 ==================
 
+To install the tool, just run:
+
 ::
    
-   git install git+https://github.com/nitram2342/simple-fax-sms
+   pip install git+https://github.com/nitram2342/simple-fax-sms
 
 
 Usage example
 ===============
 
-The ``fensterbrief`` tool is command line based:
+The ``simple_fax_sms`` tool has a command line interface. You run it like in this example:
 
 ::
    
