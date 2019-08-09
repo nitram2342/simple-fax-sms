@@ -51,7 +51,7 @@ def main():
     parser = argparse.ArgumentParser(description='Manage letters via command line', add_help=False)
 
     parser.add_argument('-h', '--help', action='store_true', dest='help')
-    parser.add_argument('--user', help=f'The simple-fax.de user name. The password is expected to be stored in the environment variable {ENV_VAR}', metavar="MAILADDRESS")
+    parser.add_argument('--user', help='The simple-fax.de user name. The password is expected to be stored in the environment variable %s.' % ENV_VAR, metavar="MAILADDRESS")
     parser.add_argument('--phone', help='The destination phone number.', metavar="MAILADDRESS")
     parser.add_argument('--text', help='The SMS text to send.', metavar="TEXT")
 
@@ -70,7 +70,7 @@ def main():
     if options.phone and options.text and options.user:
         password = os.environ[ENV_VAR]
         if password is None:
-            print(f"+ Failed to get password from envionment variable {ENV_VAR}")
+            print("+ Failed to get password from envionment variable %s." % ENV_VAR)
             return
         else:
             session = login(options.user,  password)
