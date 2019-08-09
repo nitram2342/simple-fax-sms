@@ -16,7 +16,10 @@ The ``fensterbrief`` tool is command line based:
 
 ::
    
-   SIMPLEFAXDE_PASS=mysecret simple_fax_sms --phone +49xxxxxx --user login@example.com --text 'Hello, World"
+   SIMPLEFAXDE_PASS=mysecret simple_fax_sms \
+       --phone +49xxxxxx \
+       --user login@example.com \
+       --text 'Hello, World"
 
 
 Copyright and Licence
