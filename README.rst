@@ -19,14 +19,14 @@ The ``simple_fax_sms`` tool has a command line interface. You run it like in thi
 ::
    
    SIMPLEFAXDE_PASS=mysecret simple_fax_sms \
-       --phone +49xxxxxx \
        --user login@example.com \
+       --phone +49xxxxxx \
        --text 'Hello, World"
 
 
 Copyright and Licence
 =====================
 
-``fensterbrief`` is developed by Martin Schobert martin@weltregierung.de and
+``simple_fax_sms`` is developed by Martin Schobert martin@weltregierung.de and
 published under a BSD licence with a non-military clause. Please read
 ``LICENSE.txt`` for further details.
