@@ -41,7 +41,10 @@ def send_sms(session, phone, text):
             # - Code 200 is always returned, but does not mean anything beyond the PHP page is running.
             # - "Ihr SMS ist auf dem Weg!" is always printed, even if you forget the phone number.
             # - An inline image shows a green or red sign, but is not really parsable.
+            print("+ SMS maybe sent.")
             return True
+        else:
+            print("+ Failed to sent SMS.")
 
     return False
     
