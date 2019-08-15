@@ -8,6 +8,7 @@
 import argparse
 import requests
 import os
+import sys
 
 ENV_VAR = "SIMPLEFAXDE_PASS"
 
@@ -57,6 +58,7 @@ def main():
     parser.add_argument('--user', help='The simple-fax.de user name. The password is expected to be stored in the environment variable %s.' % ENV_VAR, metavar="MAILADDRESS")
     parser.add_argument('--phone', help='The destination phone number.', metavar="MAILADDRESS")
     parser.add_argument('--text', help='The SMS text to send.', metavar="TEXT")
+    parser.add_argument('--stdin', help='Read SMS text from standard in', action='store_true')
 
     (options, unknown_options) = parser.parse_known_args()
         
@@ -70,15 +72,16 @@ def main():
         parser.print_help()
         return
         
-    if options.phone and options.text and options.user:
+    if options.phone and (options.text or options.stdin) and options.user:
         password = os.environ[ENV_VAR]
         if password is None:
             print("+ Failed to get password from envionment variable %s." % ENV_VAR)
             return
         else:
-            session = login(options.user,  password)
+            session = login(options.user,  password)            
+            text = options.text if options.text else "".join(sys.stdin.readlines())
             if session:
-                send_sms(session, options.phone, options.text)
+                send_sms(session, options.phone, text)
     else:
         parser.print_help()
         return
