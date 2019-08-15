@@ -21,7 +21,6 @@ def login(user, password):
                                                          'task' : 'user.login'}, allow_redirects=False)
     
     if "11" in r.text:
-        print("+ Logged into service.")
         return session
     elif "error" in r.text:
         print("+ Error detected. Invalid credentials?")
@@ -42,10 +41,7 @@ def send_sms(session, phone, text):
             # - Code 200 is always returned, but does not mean anything beyond the PHP page is running.
             # - "Ihr SMS ist auf dem Weg!" is always printed, even if you forget the phone number.
             # - An inline image shows a green or red sign, but is not really parsable.
-            print("+ SMS maybe sent.")
             return True
-        else:
-            print("+ Failed to sent SMS.")
 
     return False
     
@@ -59,6 +55,7 @@ def main():
     parser.add_argument('--phone', help='The destination phone number.', metavar="MAILADDRESS")
     parser.add_argument('--text', help='The SMS text to send.', metavar="TEXT")
     parser.add_argument('--stdin', help='Read SMS text from standard in', action='store_true')
+    parser.add_argument('--quiet', help='under nomal circumstances, do not print things to the console.', action='store_true')
 
     (options, unknown_options) = parser.parse_known_args()
         
@@ -73,15 +70,27 @@ def main():
         return
         
     if options.phone and (options.text or options.stdin) and options.user:
+
+        text = options.text if options.text else "".join(sys.stdin.readlines())
+        
         password = os.environ[ENV_VAR]
         if password is None:
             print("+ Failed to get password from envionment variable %s." % ENV_VAR)
             return
         else:
-            session = login(options.user,  password)            
-            text = options.text if options.text else "".join(sys.stdin.readlines())
+            
+            session = login(options.user,  password)
             if session:
-                send_sms(session, options.phone, text)
+
+                if not options.quiet:
+                    print("+ Logged into service.")
+
+                if send_sms(session, options.phone, text):
+                    if not options.quiet:
+                        print("+ SMS maybe sent.")
+                elif not options.quiet:
+                    print("+ Failed to sent SMS.")
+                    
     else:
         parser.print_help()
         return
